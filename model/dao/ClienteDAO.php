@@ -78,9 +78,6 @@ public static function getInstance() {
 getCode() . " Mensagem: " . $e->getMessage());
         }
    }
-   public function listAll(){}
-    
-   
    
    private function converterLinhaDaBaseDeDadosParaObjeto($row) {
         $obj = new Cliente;
@@ -91,7 +88,35 @@ getCode() . " Mensagem: " . $e->getMessage());
         return $obj;
     }
    
-}
+
+     public function listWhere($restanteDoSQL, $arrayDeParametros, $arrayDeValores){
+         
+         try {
+            $sql = "SELECT * FROM cliente " . $restanteDoSQL;
+            $p_sql = BDPDO::getInstance()->prepare($sql);
+            for($i = 0; $i < sizeof($arrayDeParametros); $i++){
+                $p_sql->bindValue($arrayDeParametros[$i], $arrayDeValores[$i]);
+            }     
+            $p_sql->execute();
+            $lista = array();            
+            $row = $p_sql->fetch(PDO::FETCH_ASSOC);
+            
+            
+            while($row){
+                $lista[] = $this->converterLinhaDaBaseDeDadosParaObjeto($row);
+            $row = $p_sql->fetch(PDO::FETCH_ASSOC);      
+            }
+            
+            return $lista;
+        } catch (Exception $e) {
+            print "Ocorreu um erro ao tentar executar esta ação, foi gerado
+ um LOG do mesmo, tente novamente mais tarde." . $e->getMessage();
+            GeraLog::getInstance()->inserirLog("Erro: Código: " . $e->
+getCode() . " Mensagem: " . $e->getMessage());
+        }
+         
+     }
+     }
 
 
 ?>

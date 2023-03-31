@@ -3,7 +3,7 @@
 
 class OrdemServico {
     private $id;
-    private $idcliente;
+    private $idCliente;
     private $idItemservico;
     
     function getId() {
