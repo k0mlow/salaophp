@@ -3,7 +3,11 @@
 
 class Cliente {
     
-       
+    Private $id; 
+    Private $nome;
+    Private $email;
+    Private $senha;
+                       
     function getId() {
         return $this->id;
     }

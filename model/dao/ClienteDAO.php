@@ -3,7 +3,6 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/salaophp/model/dao/BDPDO.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/salaophp/model/vo/Cliente.php';
 
 
-
 class ClienteDAO {
     public static $instance;
     private function __construct() {
@@ -123,6 +122,7 @@ getCode() . " Mensagem: " . $e->getMessage());
             $sql = "SELECT * FROM cliente " ;
             $p_sql = BDPDO::getInstance()->prepare($sql);
            
+
             $p_sql->execute();
             $lista = array();            
             $row = $p_sql->fetch(PDO::FETCH_ASSOC);
